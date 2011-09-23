@@ -37,6 +37,7 @@ Options:
 The first time you run oxen, it will ask for your GitHub info, and an optional question about the default target branch.
 
 If your project typically pulls into a branch named "develop", setting this up will save you the trouble of typing
+
 ```bash
 $ oxen -b develop
 ```

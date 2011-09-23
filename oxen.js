@@ -73,7 +73,7 @@ function submitRequest(){
     
     var options = {
         host : 'github.com',
-        post : 443,
+        port : 443,
         path : '/api/v2/json/pulls/' + ghRemote,
         method : 'POST',
         headers : {
