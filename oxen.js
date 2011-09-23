@@ -22,7 +22,7 @@ var https = require('https'),
     branch;
     
 oxen
-    .version('0.0.1')
+    .version('0.0.2')
     .option('-m, --message [message]', 'set pull request message')
     .option('-t, --title [title]', 'set pull request title')
     .option('-s, --source [name]', 'define a source repository url that\'s '
