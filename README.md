@@ -10,13 +10,15 @@ Requires node.js and npm.
 $ npm install -g oxen
 ```
 
+
 ### Usage (within a git repo):
 
 ```bash
 $ oxen
 ```
 
-### Options
+
+### Options:
 
 ```bash
 Usage: oxen.js [options]
@@ -30,6 +32,7 @@ Options:
   -s, --source   define a source repository url that's different than the current repository's (for forks)
   -b, --target   define target branch of your pull request (defaults to 'develop')
 ```
+
 
 The first time you run oxen, it will ask for your GitHub info, and an optional question about the default target branch.
 
