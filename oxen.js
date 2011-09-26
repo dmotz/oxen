@@ -26,7 +26,7 @@ oxen
     .option('-m, --message [message]', 'set pull request message')
     .option('-t, --title [title]', 'set pull request title')
     .option('-s, --source [name]', 'define a source repository url that\'s '
-        + 'different than the current repository\'s (for forks)')
+        + 'different than the current repository\'s source (for forks)')
     .option('-b, --target [name]', 'define target branch of your pull request '
         + '(defaults to \'master\')')
     .option('-r, --reset', 'reset GitHub credentials if you need to change them')
