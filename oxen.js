@@ -53,7 +53,7 @@ function getRemote(cb){
     var cmd = exec('git remote show origin -n', function(err, stdout, stderr){
         (err || stderr !== '') && handleError(stderr);
         var output = stdout.split('\n'),
-            path = output[2].match(/\.com\:.+\.git$/)[0].slice(5);
+            path = output[2].match(/github\.com\:.+/)[0].slice(11).replace(/\.git$/, '');
         cb(path.substr(0, path.length - 4));
     });
 }
