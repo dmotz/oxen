@@ -20,22 +20,22 @@ var https = require('https'),
     target,
     defaultTarget,
     branch;
-    
+
 oxen
-    .version('0.0.3')
+    .version('0.0.4')
     .option('-m, --message [message]', 'set pull request message')
     .option('-t, --title [title]', 'set pull request title')
     .option('-s, --source [name]', 'define a source repository url that\'s '
         + 'different than the current repository\'s source (for forks)')
-    .option('-b, --target [name]', 'define target branch of your pull request '
+    .option('-b, --branch [name]', 'define target branch of your pull request '
         + '(defaults to \'master\')')
     .option('-r, --reset', 'reset GitHub credentials if you need to change them')
     .parse(process.argv);
 
 
-function handleError(stderr){
-    if(stderr !== ''){
-        console.error('\x1b[31m' + stderr + '\x1b[0m');
+function handleError(m){
+    if(m !== ''){
+        console.error('\x1b[31m' + m + '\x1b[0m');
     }else{
         console.error('\x1b[31msomething went wrong here...\x1b[0m');
     }
@@ -44,6 +44,9 @@ function handleError(stderr){
 
 function getBranch(cb){
     var cmd = exec('git name-rev --name-only HEAD', function(err, stdout, stderr){
+        if(err && err.message.indexOf('Not a git repo') > -1){
+            handleError('oxen only works within git repos.');
+        }
         (err || stderr !== '') && handleError(stderr);
         cb(trim(stdout));
     });
@@ -58,19 +61,19 @@ function getRemote(cb){
     });
 }
 
-function submitRequest(){    
+function submitRequest(){
     var title = oxen.title || branch + ' -> ' + target,
         body  = oxen.message || '';
-    
+
     var postData = {
         'pull[base]' : target,
         'pull[head]' : branch,
         'pull[title]': title,
         'pull[body]' : body
     }
-        
+
     postData = qs.stringify(postData);
-    
+
     var options = {
         host : 'github.com',
         port : 443,
@@ -142,7 +145,7 @@ function setUp(){
             oxen.prompt('default target branch (optional, defaults to master): ', function(d){
                 defaultTarget = trim(d);
                 defaultTarget = defaultTarget ? defaultTarget : 'master';
-                var options = { 
+                var options = {
                                 username      : trim(username),
                                 password      : trim(password),
                                 defaultTarget : defaultTarget
@@ -181,7 +184,7 @@ function init(config){
         }else{
             ghRemote = oxen.source;
             confirmPull();
-        } 
+        }
     });
 }
 
